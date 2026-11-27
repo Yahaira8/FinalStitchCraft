@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg-primary: #FDFBF7;
+  --bg-surface: #FFFFFF;
+  --text-primary: #2B2B2B;
+  --text-muted: #5F5B54;
+  --color-accent: #C86D51;
+  --color-accent-hover: #B35D43;
+  --color-secondary: #7A8B7B;
+  --border-color: #E2DDD5;
+}
+
+.dark {
+  --bg-primary: #1A1D20;
+  --bg-surface: #25292E;
+  --text-primary: #EAEAEA;
+  --text-muted: #A6ACB5;
+  --color-accent: #E09F93;
+  --color-accent-hover: #D38B7D;
+  --color-secondary: #95A796;
+  --border-color: #363B42;
+}
+
+html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Avenir Next', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: 'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
