@@ -7,6 +7,7 @@ interface AuthContextValue {
   loading: boolean;
   runtimeMode: RuntimeMode;
   loginWithDemo: () => Promise<User>;
+  loginWithGoogle: () => Promise<User>;
   login: (email: string, password: string) => Promise<User>;
   register: (email: string, username: string, password: string) => Promise<User>;
   logout: () => Promise<void>;
@@ -51,6 +52,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return loggedIn;
   };
 
+  const loginWithGoogle = async () => {
+    const loggedIn = await storageAdapter.loginWithGoogle();
+    setUser(loggedIn);
+    return loggedIn;
+  };
+
   const login = async (email: string, password: string) => {
     const loggedIn = await storageAdapter.login(email, password);
     setUser(loggedIn);
@@ -75,6 +82,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         loading,
         runtimeMode,
         loginWithDemo,
+        loginWithGoogle,
         login,
         register,
         logout,

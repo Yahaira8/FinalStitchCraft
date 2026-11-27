@@ -69,6 +69,14 @@ export function Navbar() {
 
           {user ? (
             <div className="hidden sm:flex items-center gap-3">
+              {user.avatar_url && (
+                <img
+                  src={user.avatar_url}
+                  alt={user.username}
+                  referrerPolicy="no-referrer"
+                  className="h-7 w-7 rounded-full object-cover border border-[var(--border-color)]"
+                />
+              )}
               <span className="text-sm font-medium text-[var(--text-primary)] whitespace-nowrap max-w-[140px] truncate">
                 {user.username}
               </span>

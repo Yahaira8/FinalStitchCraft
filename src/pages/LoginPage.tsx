@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { GoogleSignInButton } from '../components/GoogleSignInButton';
 
 export function LoginPage() {
-  const { login, register, loginWithDemo, runtimeMode } = useAuth();
+  const { login, register, loginWithDemo, loginWithGoogle, runtimeMode } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const nextPath = searchParams.get('next') || '/';
@@ -16,6 +17,19 @@ export function LoginPage() {
   const [submitting, setSubmitting] = useState(false);
 
   const safeNext = nextPath.startsWith('/') && !nextPath.startsWith('//') ? nextPath : '/';
+
+  const handleGoogleLogin = async () => {
+    setError(null);
+    setSubmitting(true);
+    try {
+      await loginWithGoogle();
+      navigate(safeNext);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Google sign-in was cancelled or failed.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const handleDemoLogin = async () => {
     setError(null);
@@ -61,7 +75,12 @@ export function LoginPage() {
           Save favorite patterns, track multi-part plushie projects, and share finished makes.
         </p>
 
-        <div className="mt-6">
+        <div className="mt-6 space-y-2.5">
+          <GoogleSignInButton
+            onClick={handleGoogleLogin}
+            disabled={submitting}
+            className="w-full"
+          />
           <button
             type="button"
             onClick={handleDemoLogin}
